@@ -1,0 +1,33 @@
+<h1>My To-Do List</h1>
+
+<form method="post" action="{% url 'add_item' %}">
+    {% csrf_token %}
+    <input type="text" name="text" placeholder="Add a new item">
+    <button type="submit">Add</button>
+</form>
+
+<ul>
+    {% for item in items %}
+        <li>
+            {{ item.text }}
+            {% if item.complete %}
+                (Completed)
+            {% endif %}
+            <form method="post" action="{% url 'toggle_complete' item.id %}">
+                {% csrf_token %}
+                <button type="submit">
+                    {% if item.complete %}
+                        Mark as Incomplete
+                    {% else %}
+                        Mark as Complete
+                    {% endif %}
+                </button>
+            </form>
+            <form method="post" action="{% url 'delete_item' item.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+

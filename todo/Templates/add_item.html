@@ -1,0 +1,8 @@
+<h1>Add a New To-Do Item</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="text">Text:</label>
+    <input type="text" name="text" id="text">
+    <button type="submit">Add</button>
+</form>
